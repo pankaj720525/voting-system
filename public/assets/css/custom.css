@@ -1,0 +1,12 @@
+label.error {
+    color: red;
+}
+.required::after{
+    content: "*";
+    color: red;
+}
+.checked-border{
+    border: 2px solid #9595ff;
+    border-radius: 10px;
+    padding: 6px 0px 8px 0px;
+}
