@@ -52,13 +52,22 @@ $(function() {
 
         let total_vote_count = data.answer_array['total_count'];
         let poll_percentage = data.answer_array.poll_percentage;
+        let poll_option_count = data.answer_array.poll_option_count;
         let poll_option_html = "";
+        let process_index = 1;
 
         data.poll_options.forEach(element => {
             var is_checked = (data.answer_array['data_array'][auth_id] !== undefined && data.answer_array['data_array'][auth_id] == element.id)? 'checked' : '';
             var checked_class = (data.answer_array['data_array'][auth_id] !== undefined && data.answer_array['data_array'][auth_id] == element.id)? 'checked-border my-2' : '';
             var is_closed = (data.close == 1)? 'disabled' : '';
             var percentage = (poll_percentage[element.id] !== undefined)? poll_percentage[element.id] : 0;
+            var poll_answer_count = (poll_option_count[element.id] !== undefined)? poll_option_count[element.id] : 0;
+            if (process_index > 5) {
+                process_index = 1;
+            }
+            var process_class = progress_bar_classes[process_index];
+            process_index++;
+
             var options = `
                     <div class="row ${checked_class}">
                         <div class="col-auto">
@@ -76,7 +85,7 @@ $(function() {
                         </div>
                         <div class="col-12">
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: ${percentage}%" aria-valuenow="${total_vote_count}" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar ${process_class}" role="progressbar" style="width: ${percentage}%" aria-valuenow="${total_vote_count}" aria-valuemin="0" aria-valuemax="100">${poll_answer_count}</div>
                             </div>
                         </div>
                     </div>`;

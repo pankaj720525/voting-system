@@ -8,5 +8,33 @@ label.error {
 .checked-border{
     border: 2px solid #9595ff;
     border-radius: 10px;
-    padding: 6px 0px 8px 0px;
+    padding: 4px 0px 8px 0px;
+}
+.checked-border:has(.progress-bar.bg-success){
+    border-color: rgba(25,135,84,1) !important;
+}
+.checked-border:has(.progress-bar.bg-success) .form-check-input:checked {
+    background-color: rgba(25,135,84,1) !important;
+    border-color: rgba(25,135,84,1) !important;
+}
+.checked-border:has(.progress-bar.bg-info){
+    border-color: rgba(13,202,240,1) !important;
+}
+.checked-border:has(.progress-bar.bg-info) .form-check-input:checked {
+    background-color: rgba(13,202,240,1) !important;
+    border-color: rgba(13,202,240,1) !important;
+}
+.checked-border:has(.progress-bar.bg-warning){
+    border-color: rgba(255,193,7,1) !important;
+}
+.checked-border:has(.progress-bar.bg-warning) .form-check-input:checked {
+    background-color: rgba(255,193,7,1) !important;
+    border-color: rgba(255,193,7,1) !important;
+}
+.checked-border:has(.progress-bar.bg-danger){
+    border-color: rgba(220,53,69,1) !important;
+}
+.checked-border:has(.progress-bar.bg-danger) .form-check-input:checked {
+    background-color: rgba(220,53,69,1) !important;
+    border-color: rgba(220,53,69,1) !important;
 }

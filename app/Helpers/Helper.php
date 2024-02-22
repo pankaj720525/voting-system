@@ -31,4 +31,21 @@ class Helper {
             return false;
         }
     }
+
+    /**
+     * Progress Bar Classes
+     *
+     * @param  mixed $id
+     * @return void
+     */
+    public static function progressBarClasses()
+    {
+        return [
+            1 => '',
+            2 => 'bg-success',
+            3 => 'bg-info',
+            4 => 'bg-warning',
+            5 => 'bg-danger',
+        ];
+    }
 }

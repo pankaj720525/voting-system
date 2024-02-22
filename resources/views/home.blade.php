@@ -22,6 +22,7 @@
 
     var poll_url = "{{ route('get.polls') }}";
     var submit_poll_url = "{{ route('submit.poll') }}";
+    let progress_bar_classes = @json(Helper::progressBarClasses());
 </script>
 <script src="{{ asset('assets/js/home.js?v='.env('JS_VERSION',time())) }}"></script>
 @endsection

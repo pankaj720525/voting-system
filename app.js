@@ -18,9 +18,6 @@ const io = new Server(server, {
     },
 });
 
-app.get('/', (req, res) => {
-    res.send('<h1>Hello world</h1>');
-});
 
 server.listen(SOCKET_PORT, () => {
     console.log(`server running at http://localhost:${SOCKET_PORT}`);

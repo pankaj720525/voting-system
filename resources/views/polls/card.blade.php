@@ -5,7 +5,15 @@
             <p class="mb-0"><strong>Vote Count:</strong> {{ $poll->answer_array['total_count'] }}</p>
         </div>
         <div class="card-body">
+            @php $index = 1; @endphp
             @foreach ($poll->poll_options as $option_value)
+                @php
+                    if ($index > 5) {
+                        $index = 1;
+                    }
+                    $progress_class = isset(Helper::progressBarClasses()[$index])? Helper::progressBarClasses()[$index] : '';
+                    $index++;
+                @endphp
                 <div class="row {{ (isset($poll->answer_array['data_array'][Auth::id()]) && $poll->answer_array['data_array'][Auth::id()] == $option_value->id)? 'checked-border my-2' : '' }}">
                     <div class="col-auto">
                         <div class="form-check">
@@ -22,7 +30,9 @@
                     </div>
                     <div class="col-12">
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: {{ (isset($poll->answer_array['poll_percentage'][$option_value->id]))? $poll->answer_array['poll_percentage'][$option_value->id] : 0 }}%" aria-valuenow="{{ $poll->answer_array['total_count'] }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar {{ $progress_class }}" role="progressbar" style="width: {{ (isset($poll->answer_array['poll_percentage'][$option_value->id]))? $poll->answer_array['poll_percentage'][$option_value->id] : 0 }}%" aria-valuenow="{{ $poll->answer_array['total_count'] }}" aria-valuemin="0" aria-valuemax="100">
+                                {{ (isset($poll->answer_array['poll_option_count'][$option_value->id]))? $poll->answer_array['poll_option_count'][$option_value->id] : 0 }}
+                            </div>
                         </div>
                     </div>
                 </div>
