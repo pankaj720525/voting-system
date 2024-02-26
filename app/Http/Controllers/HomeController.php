@@ -66,9 +66,9 @@ class HomeController extends Controller
             'poll_option_id' => Helper::getDecryptedId($request->poll_option_id),
         ]);
 
-        $poll = Poll::with('poll_options','poll_answer')->where('id',$poll->id)->first()->append(['secret','answer_array']);
+        $poll = Poll::with('poll_options','poll_answer.user_detail')->where('id',$poll->id)->first()->append(['secret','answer_array']);
 
-        Redis::publish('poll:update', $poll->toJson());
+        Redis::publish('poll:details', $poll->toJson());
 
         if ($update) {
             return response()->json(['status'=>true,'message'=>'success']);

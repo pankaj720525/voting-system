@@ -27,7 +27,7 @@
                                     @endforeach
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="result-content-body">
                                     @if (count($poll->poll_answer) > 0)
                                         @foreach ($poll->poll_answer as $answer_value)
                                             <tr>
@@ -58,7 +58,13 @@
 @endsection
 
 @section('scripts')
+<script src="{{ env('SOCKET_URL') }}/socket.io/socket.io.js"></script>
+
 <script>
+    var SOCKET_URL = "{{ env('SOCKET_URL') }}";
+    var socket = io(SOCKET_URL);
+    var auth_id = "{{ Auth::id() }}";
+    var poll_id = "{{ $poll->id }}";
     var exists_url = "{{ route('poll.exists') }}";
 </script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>

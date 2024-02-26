@@ -107,7 +107,7 @@ $(function() {
         `;
 
         if(is_new) {
-            $('#poll-list-section').append(card);
+            $('#poll-list-section').prepend(card);
         } else {
             $('#poll-card-'+data.secret).html(card);
         }

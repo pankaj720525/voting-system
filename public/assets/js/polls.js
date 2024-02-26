@@ -18,19 +18,6 @@ $(document).ready(function() {
         $('.poll-options').append(poll_options);
 
         extraValidation()
-        // if($(".question_options").length){
-        //     $(".question_options").each(function () {
-        //         console.log($(this));
-        //         $(this).rules("add", {
-        //             required:true,
-        //             min_options: true,
-        //             normalizer: function(value) { return $.trim(value); },
-        //             messages: {
-        //                 required: "Please enter option.",
-        //             }
-        //         });
-        //     });
-        // }
     });
 
     $(document).on('click', '.remove-option', function() {
@@ -64,8 +51,9 @@ $(document).ready(function() {
                 url: filter_url,
             },
             columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                 { data: 'question', name: 'question' },
-                { data: 'action', name: 'action' },
+                { data: 'action', name: 'action', class: 'text-center' },
             ]
         });
     }
@@ -160,4 +148,51 @@ $(document).ready(function() {
             }
         });
     });
+
+    if (typeof socket !== "undefined") {
+        socket.on(`poll-votes`, function(data) {
+            let votes = jQuery.parseJSON(data);
+            if (votes.id == poll_id) {
+                result_html(votes);
+            }
+        });
+
+        function result_html(poll){
+            var body = "";
+            var result = "";
+            if (poll.poll_answer != null) {
+                let poll_option_count = poll.answer_array.poll_option_count;
+                poll.poll_answer.forEach(function(val, element) {
+                    var poll_options = ``;
+                    poll.poll_options.forEach(function(row, i) {
+                        var poll_answer_count = (val.poll_option_id == row.id)? 1 : 0;
+                        poll_options += `<td>${poll_answer_count}</td>`;
+                    });
+                    body += `<tr>
+                        <td>${val.user_detail.name}</td>
+                        ${poll_options}
+                    </tr>`;
+                });
+
+                poll.poll_options.forEach(function(row, i) {
+                    var poll_answer_count = (poll_option_count[row.id] !== undefined)? poll_option_count[row.id] : 0;
+                    result += `<td>${poll_answer_count}</td>`;
+                });
+                body += `
+                    <tr class="table-primary">
+                        <td class="text-end fw-bold">Result:</td>
+                        ${result}
+                    </tr>
+                `;
+            } else {
+                body = `
+                    <tr>
+                        <td class="text-center" colspan="{{ count($poll->poll_options) }}">No data found.</td>
+                    </tr>
+                `;
+            }
+
+            $('#result-content-body').html(body);
+        }
+    }
 });

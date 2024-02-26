@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
             socket.emit('poll-added', message);
         });
 
-        await subscriber.subscribe(process.env.REDIS_PREFIX+'poll:update', (message) => {
+        await subscriber.subscribe(process.env.REDIS_PREFIX+'poll:details', (message) => {
             socket.emit('poll-votes', message)
         });
 

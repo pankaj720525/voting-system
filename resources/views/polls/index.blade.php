@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <a href="{{ route('home') }}" class="btn btn-primary">Back</a>
@@ -13,6 +13,7 @@
                     <table class="table table-striped table-bordered data-table">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Question</th>
                                 <th>Action</th>
                             </tr>
